@@ -38,4 +38,19 @@ for i in range(25):
 
 border.hideturtle()
 
+# рисуем рокетки
+rocket_left = turtle.Turtle()
+rocket_left.color('white')
+rocket_left.shape('square')
+rocket_left.shapesize(stretch_len=1, stretch_wid=6)
+rocket_left.penup()
+rocket_left.goto(-450, 0)
+
+rocket_right = turtle.Turtle()
+rocket_right.color('white')
+rocket_right.shape('square')
+rocket_right.shapesize(stretch_len=1, stretch_wid=6)
+rocket_right.penup()
+rocket_right.goto(450, 0)
+
 window.mainloop()
