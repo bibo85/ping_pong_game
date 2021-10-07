@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import turtle
+from random import choice, randint
 
 # размеры игрового поля
 PLAYING_FIELD_WIDTH = 1000
@@ -93,5 +94,39 @@ window.onkeypress(move_up_left_rocket, 'w')
 window.onkeypress(move_down_left_rocket, 's')
 window.onkeypress(move_up_right_rocket, 'Up')
 window.onkeypress(move_down_right_rocket, 'Down')
+
+# рисуем мячик
+ball = turtle.Turtle()
+ball.shape('circle')
+ball.color('red')
+ball.up()
+ball.speed(0)
+# задаем скорость мячика
+ball.dx = choice([-4, -3, -2, 2, 3, 4])
+ball.dy = choice([-4, -3, -2, 2, 3, 4])
+
+# движение мяча
+while True:
+    window.update()
+
+    ball.setx(ball.xcor() + ball.dx)
+    ball.sety(ball.ycor() + ball.dy)
+
+    # касание мяча верхней границы игрового поля
+    if ball.ycor() >= PLAYING_FIELD_HEIGHT // 2 - 10:
+        ball.dy = -ball.dy
+    # касание мяча нижней границы игрового поля
+    if ball.ycor() <= -PLAYING_FIELD_HEIGHT // 2 + 10:
+        ball.dy = -ball.dy
+    # касание мяча правой границы игрового поля
+    if ball.xcor() >= PLAYING_FIELD_WIDTH // 2 - 10:
+        ball.goto(0, randint(-150, 150))
+        ball.dx = choice([-4, -3, -2, 2, 3, 4])
+        ball.dy = choice([-4, -3, -2, 2, 3, 4])
+    # касание мяча левой границы игрового поля
+    if ball.xcor() <= -PLAYING_FIELD_WIDTH // 2 + 10:
+        ball.goto(0, randint(-150, 150))
+        ball.dx = choice([-4, -3, -2, 2, 3, 4])
+        ball.dy = choice([-4, -3, -2, 2, 3, 4])
 
 window.mainloop()
