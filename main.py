@@ -128,5 +128,13 @@ while True:
         ball.goto(0, randint(-150, 150))
         ball.dx = choice([-4, -3, -2, 2, 3, 4])
         ball.dy = choice([-4, -3, -2, 2, 3, 4])
+    # Находим пересечение мячика и правой рокетки
+    if rocket_right.ycor() - HEIGHT_ROCKET * 10 <= ball.ycor() <= (rocket_right.ycor() + HEIGHT_ROCKET * 10) \
+            and rocket_right.xcor() - WIDTH_ROCKET * 10 <= ball.xcor() <= rocket_right.xcor() + WIDTH_ROCKET * 10:
+        ball.dx = -ball.dx
+    # Находим пересечение мячика и левой рокетки
+    if rocket_left.ycor() - HEIGHT_ROCKET * 10 <= ball.ycor() <= (rocket_left.ycor() + HEIGHT_ROCKET * 10) \
+            and rocket_left.xcor() - WIDTH_ROCKET * 10 <= ball.xcor() <= rocket_left.xcor() + WIDTH_ROCKET * 10:
+        ball.dx = -ball.dx
 
 window.mainloop()
