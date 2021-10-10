@@ -12,6 +12,8 @@ HEIGHT_ROCKET = 6  # это половина высоты рокетки. Реа
 WIDTH_ROCKET = 1  # этополовина ширины рокетки. Реальный размер x2
 ROCKETS_INDENT = 50  # отступ рокеток от края игрового поля в пикс
 
+FONT = ("Arial", 16, "normal")
+
 
 def move_up_left_rocket():
     y = rocket_left.ycor() + 10
@@ -40,6 +42,21 @@ def move_down_right_rocket():
         y = -PLAYING_FIELD_HEIGHT / 2 + HEIGHT_ROCKET * 10
     rocket_right.sety(y)
 
+
+# подсчет очков
+score_left = 0
+sleft = turtle.Turtle(visible=False)
+sleft.color('white')
+sleft.penup()
+sleft.setposition(-PLAYING_FIELD_WIDTH // 4, PLAYING_FIELD_HEIGHT // 2 + 20)
+sleft.write(score_left, font=FONT)
+
+score_right = 0
+sright = turtle.Turtle(visible=False)
+sright.color('white')
+sright.penup()
+sright.setposition(PLAYING_FIELD_WIDTH // 4, PLAYING_FIELD_HEIGHT // 2 + 20)
+sright.write(score_left, font=FONT)
 
 # настройка игрового окна
 window = turtle.Screen()
@@ -123,11 +140,19 @@ while True:
         ball.goto(0, randint(-150, 150))
         ball.dx = choice([-4, -3, -2, 2, 3, 4])
         ball.dy = choice([-4, -3, -2, 2, 3, 4])
+        # обновляем счет левого игрока
+        score_left += 1
+        sleft.clear()
+        sleft.write(score_left, font=FONT)
     # касание мяча левой границы игрового поля
     if ball.xcor() <= -PLAYING_FIELD_WIDTH // 2 + 10:
         ball.goto(0, randint(-150, 150))
         ball.dx = choice([-4, -3, -2, 2, 3, 4])
         ball.dy = choice([-4, -3, -2, 2, 3, 4])
+        # обновляем счет правого игрока
+        score_right += 1
+        sright.clear()
+        sright.write(score_right, font=FONT)
     # Находим пересечение мячика и правой рокетки
     if rocket_right.ycor() - HEIGHT_ROCKET * 10 <= ball.ycor() <= (rocket_right.ycor() + HEIGHT_ROCKET * 10) \
             and rocket_right.xcor() - WIDTH_ROCKET * 10 <= ball.xcor() <= rocket_right.xcor() + WIDTH_ROCKET * 10:
